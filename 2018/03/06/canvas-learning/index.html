@@ -85,12 +85,12 @@
 <meta property="og:title" content="canvas基础笔记">
 <meta property="og:url" content="http://yoursite.com/2018/03/06/canvas-learning/index.html">
 <meta property="og:site_name" content="Fundatou">
-<meta property="og:description" content="rotate关于rotate，我觉得MDN上一段画五角星的代码很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。 function drawStar(ctx, r) {     ctx.save();     ctx.beginPath()     // 将五角星的中心点设置为坐标远点，先将绘画的起点移动到五角星的一个角上，现在该点处在水平坐标轴上     ct">
+<meta property="og:description" content="rotate关于rotate，我觉得MDN上一段画五角星的代码很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。 function drawStar(ctx, r) {     ctx.save();     ctx.beginPath()     // 将五角星的中心点设置为坐标远点，先将绘画的起点移动到五角星     // 的一个角上，现在该点处在水平坐标轴">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-10T13:40:48.000Z">
+<meta property="og:updated_time" content="2018-03-10T13:56:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="canvas基础笔记">
-<meta name="twitter:description" content="rotate关于rotate，我觉得MDN上一段画五角星的代码很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。 function drawStar(ctx, r) {     ctx.save();     ctx.beginPath()     // 将五角星的中心点设置为坐标远点，先将绘画的起点移动到五角星的一个角上，现在该点处在水平坐标轴上     ct">
+<meta name="twitter:description" content="rotate关于rotate，我觉得MDN上一段画五角星的代码很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。 function drawStar(ctx, r) {     ctx.save();     ctx.beginPath()     // 将五角星的中心点设置为坐标远点，先将绘画的起点移动到五角星     // 的一个角上，现在该点处在水平坐标轴">
 
 
 
@@ -320,15 +320,17 @@
       
 
       
-        <h3 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a>rotate</h3><p>关于rotate，我觉得<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing" target="_blank" rel="noopener">MDN上一段画五角星的代码</a>很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。</p>
+        <h1 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a>rotate</h1><p>关于rotate，我觉得<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing" target="_blank" rel="noopener">MDN上一段画五角星的代码</a>很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。</p>
 <pre><code>function drawStar(ctx, r) {
     ctx.save();
     ctx.beginPath()
-    // 将五角星的中心点设置为坐标远点，先将绘画的起点移动到五角星的一个角上，现在该点处在水平坐标轴上
+    // 将五角星的中心点设置为坐标远点，先将绘画的起点移动到五角星
+    // 的一个角上，现在该点处在水平坐标轴上
     ctx.moveTo(r,0);
     // 五角星总共是10条边，最后一条边用 closePath 绘制，因此绘制过程循环9次
     for (var i=0;i&lt;9;i++){
-        // 利用rotate方法每次将整个坐标系顺时针旋转 36度，这样绘制的下一个点就又在水平坐标轴上，只需要知道五角星中该点到中心点的距离即可
+        // 利用rotate方法每次将整个坐标系顺时针旋转 36度，这样绘制的
+        // 下一个点就又在水平坐标轴上，只需要知道五角星中该点到中心点的距离即可
         ctx.rotate(Math.PI/5);
         if(i%2 == 0) {
         // 偶数次绘制的时候绘制内凹的角顶点
@@ -503,7 +505,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#rotate"><span class="nav-number">1.</span> <span class="nav-text">rotate</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rotate"><span class="nav-number">1.</span> <span class="nav-text">rotate</span></a></li></ol></div>
             
 
           </div>
