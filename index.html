@@ -319,33 +319,14 @@
 
       
         
-          
-            <h1 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a>rotate</h1><p>关于rotate，我觉得<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing" target="_blank" rel="noopener">MDN上一段画五角星的代码</a>很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。</p>
-<pre><code>function drawStar(ctx, r) {
-    ctx.save();
-    ctx.beginPath()
-    // 将五角星的中心点设置为坐标远点，先将绘画的起点移动到五角星
-    // 的一个角上，现在该点处在水平坐标轴上
-    ctx.moveTo(r,0);
-    // 五角星总共是10条边，最后一条边用 closePath 绘制，因此绘制过程循环9次
-    for (var i=0;i&lt;9;i++){
-        // 利用rotate方法每次将整个坐标系顺时针旋转 36度，这样绘制的
-        // 下一个点就又在水平坐标轴上，只需要知道五角星中该点到中心点的距离即可
-        ctx.rotate(Math.PI/5);
-        if(i%2 == 0) {
-        // 偶数次绘制的时候绘制内凹的角顶点
-        ctx.lineTo((r/0.525731)*0.200811,0);
-        } else {
-        ctx.lineTo(r,0);
-        }
-    }
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();ß
-}
-</code></pre><p>从上面画五角星的过程就能看出，调用rotate的时候坐标原点保持不变，旋转坐标系，并且不会之前已经绘制的点的绝对位置。</p>
-
-          
+          <h1 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a>rotate</h1><p>关于rotate，我觉得<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing" target="_blank" rel="noopener">MDN上一段画五角星的代码</a>很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/06/canvas-learning/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
