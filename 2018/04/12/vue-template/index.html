@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Fundatou">
 <meta property="og:description" content="下载vue cli之后，在命令行中用如下命令可以新建一个初始的vue + webpack的项目。该初始化的项目中包含一些webpack的配置和空的目录结构。这个初始化的“空”项目其实就是用的vue的官方模版。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-14T07:32:56.000Z">
+<meta property="og:updated_time" content="2018-04-14T07:33:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建自己的vue模版时遇到的坑">
 <meta name="twitter:description" content="下载vue cli之后，在命令行中用如下命令可以新建一个初始的vue + webpack的项目。该初始化的项目中包含一些webpack的配置和空的目录结构。这个初始化的“空”项目其实就是用的vue的官方模版。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz">
@@ -325,7 +325,400 @@
 <ol>
 <li><p><strong><code>vue</code>中的变量表示和<code>handlebars</code>中的变量表示冲突</strong></p>
 <p>我有在模版的html中写变量，然后每次初始化生成项目之后就会发现变量都不见了。想想应该是<code>vue cli</code>中用到<code>handlebars</code>来渲染文件，然后<code>handlebars</code>将模版中<code>mustaches</code>表达式都替换了，vue的变量因找不到对应的<code>handlebars</code>变量惨遭淘汰。这种情况下该怎么办呢？怎样让vue的变量逃过handlebars的魔爪呢？</p>
-<p>弱鸡如我，一直想的是能否给<code>handlebars</code>设置个作用文件的范围，某些文件就不要让<code>handlebars</code>插手了。空有这个想法，浏览了一遍vue脚手架的源码也没找到什么入口点。然后我去<a href="https://github.com/dwqs/blog/issues/56" target="_blank" rel="noopener">这篇脚手架源码分析贴</a>的下面提了个问，大佬回复的很快，大佬说将模版中vue的变量写法改成<code></code>。高低立现啊！将vue文件中的<code>\</code>转义一下写成<code>\</code>在做正则匹配的时候自然不会匹配成<code>mustaches</code>表达式了orz</p>
+<p>弱鸡如我，一直想的是能否给<code>handlebars</code>设置个作用文件的范围，某些文件就不要让<code>handlebars</code>插手了。空有这个想法，浏览了一遍vue脚手架的源码也没找到什么入口点。然后我去<a href="https://github.com/dwqs/blog/issues/56" target="_blank" rel="noopener">这篇脚手架源码分析贴</a>的下面提了个问，大佬回复的很快，大佬说将模版中vue的变量写法改成<code>---
+title: 创建自己的vue模版时遇到的坑
+date: 2018-04-12 21:29:24
+tags: vue
+---
+
+
+  下载`vue cli`之后，在命令行中用如下命令可以新建一个初始的`vue + webpack`的项目。该初始化的项目中包含一些`webpack`的配置和空的目录结构。这个初始化的“空”项目其实就是用的[vue的官方模版](https://github.com/vuejs-templates/webpack)。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz
+<!--more-->
+
+```
+npm i -g vue-cli
+vue init webpack projectname
+
+vue init username/repositoryurl projectname
+
+vue init filepath projectname
+
+```
+
+1. **`vue`中的变量表示和`handlebars`中的变量表示冲突**
+
+  我有在模版的html中写变量，然后每次初始化生成项目之后就会发现变量都不见了。想想应该是`vue cli`中用到`handlebars`来渲染文件，然后`handlebars`将模版中`mustaches`表达式都替换了，vue的变量因找不到对应的`handlebars`变量惨遭淘汰。这种情况下该怎么办呢？怎样让vue的变量逃过handlebars的魔爪呢？
+
+  弱鸡如我，一直想的是能否给`handlebars`设置个作用文件的范围，某些文件就不要让`handlebars`插手了。空有这个想法，浏览了一遍vue脚手架的源码也没找到什么入口点。然后我去[这篇脚手架源码分析贴](https://github.com/dwqs/blog/issues/56)的下面提了个问，大佬回复的很快，大佬说将模版中vue的变量写法改成`{{raw}}`。高低立现啊！将vue文件中的`\{{raw}}`转义一下写成`\{{raw}}`在做正则匹配的时候自然不会匹配成`mustaches`表达式了orz
+
+2. **当你想用远程模版时，初始化命令到底该怎么写？**
+
+  公司内部的代码都放在公司gitlab仓库，将模版放在上面之后到底要怎么写初始化命令呢？首先我在github上搜了一圈，有人说从gitlab上拉代码的话你要这样写
+
+  ```
+  vue init -c gitlab:gitlab-host.com:username/my-template-repo project-name
+  ```
+  但是得到的结果是
+  
+  ```
+  vue-cli · Failed to download repo gitlab-host.com:username/my-template-rep: 'git clone' failed with status 128
+  ```
+  于是谷歌之，看到相关的比较古老的`vue cli`的issue，出现这种错误的原因是`～/.vue-templates`文件夹中已经有改template文件的缓存了。但是，这个issue提出来后就被修复了，我使用的已经是最新版本的脚手架了（虽然我还是抱着侥幸的心理将`～/.vue-templates`文件夹清空了试了好几下，还是不行）。然后根据github上的兄弟们的说法进行了各种排列组合的试验，要么出现上面的错误，要么404找不到repository。一个哥们说，既然`vue cli`从远程拉代码用的是[download-git-repo](https://github.com/flipxfx/download-git-repo/blob/master/index.js)那么为什么不去看一下它的代码怎么写的？顿时觉得很有道理啊，去看一下不就知道怎么写了吗，总比像个无头苍蝇到处乱撞的试要好吧（自己的一个很大的毛病就是总是不知道解决问题的要领😢）。下面的代码片段的功能就是根据输入的命令拼下载url。
+  
+```
+/**
+* Normalize a repo string.
+*
+* @param {String} repo
+* @return {Object}
+*/
+// 支持 github gitlab 以及 bitbucket，默认github。支持用户输入域名 仓库所属人名必须 仓库名必须 分支名默认master 
+function normalize (repo) {
+  var regex = /^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?$/
+  var match = regex.exec(repo)
+  var type = match[2] || 'github'
+  var origin = match[4] || null
+  var owner = match[5]
+  var name = match[6]
+  var checkout = match[8] || 'master'
+
+  if (origin == null) {
+    if (type === 'github')
+      origin = 'github.com'
+    else if (type === 'gitlab')
+      origin = 'gitlab.com'
+    else if (type === 'bitbucket')
+      origin = 'bitbucket.org'
+  }
+
+  return {
+    type: type,
+    origin: origin,
+    owner: owner,
+    name: name,
+    checkout: checkout
+  }
+}
+
+/**
+ * Adds protocol to url in none specified
+ *
+ * @param {String} url
+ * @return {String}
+ */
+// 没有头部协议时添加头部协议，如果用户输入中有clone标志，则用ssh链接，否则用https
+function addProtocol (origin, clone) {
+  if (!/^(f|ht)tps?:\/\//i.test(origin)) {
+    if (clone)
+      origin = 'git@' + origin
+    else
+      origin = 'https://' + origin
+  }
+
+  return origin
+}
+
+/**
+ * Return a zip or git url for a given `repo`.
+ *
+ * @param {Object} repo
+ * @return {String}
+ */
+function getUrl (repo, clone) {
+  var url
+
+  // Get origin with protocol and add trailing slash or colon (for ssh)
+  var origin = addProtocol(repo.origin, clone)
+  if (/^git\@/i.test(origin))
+    origin = origin + ':'
+  else
+    origin = origin + '/'
+
+  // Build url
+  if (clone) {
+    url = origin + repo.owner + '/' + repo.name + '.git'
+  } else {
+    if (repo.type === 'github')
+      url = origin + repo.owner + '/' + repo.name + '/archive/' + repo.checkout + '.zip'
+    else if (repo.type === 'gitlab')
+      url = origin + repo.owner + '/' + repo.name + '/repository/archive.zip?ref=' + repo.checkout
+    else if (repo.type === 'bitbucket')
+      url = origin + repo.owner + '/' + repo.name + '/get/' + repo.checkout + '.zip'
+    else
+      url = github(repo)
+  }
+
+  return url
+}
+
+  ```
+  看上面的代码之前我一直以为代码在gitlab上就用`gitlab:`，别人所说的username就是自己的用户名（其实是repository的owner）。看完之后发现我都错了，你以为的永远都不是你以为的orz。上面的代码非常的简单易懂，可以说看完就完全不用担心不会根据代码仓库的地址来写命令了。ps:既然问题不是大多数人提到的缓存问题，那为啥错误提示都是一样的orz pps:现在写出来的东西内容和排版都不太好，慢慢来吧😂
+
+
+
+</code>。高低立现啊！将vue文件中的<code>\---
+title: 创建自己的vue模版时遇到的坑
+date: 2018-04-12 21:29:24
+tags: vue
+---
+
+
+  下载`vue cli`之后，在命令行中用如下命令可以新建一个初始的`vue + webpack`的项目。该初始化的项目中包含一些`webpack`的配置和空的目录结构。这个初始化的“空”项目其实就是用的[vue的官方模版](https://github.com/vuejs-templates/webpack)。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz
+<!--more-->
+
+```
+npm i -g vue-cli
+vue init webpack projectname
+
+vue init username/repositoryurl projectname
+
+vue init filepath projectname
+
+```
+
+1. **`vue`中的变量表示和`handlebars`中的变量表示冲突**
+
+  我有在模版的html中写变量，然后每次初始化生成项目之后就会发现变量都不见了。想想应该是`vue cli`中用到`handlebars`来渲染文件，然后`handlebars`将模版中`mustaches`表达式都替换了，vue的变量因找不到对应的`handlebars`变量惨遭淘汰。这种情况下该怎么办呢？怎样让vue的变量逃过handlebars的魔爪呢？
+
+  弱鸡如我，一直想的是能否给`handlebars`设置个作用文件的范围，某些文件就不要让`handlebars`插手了。空有这个想法，浏览了一遍vue脚手架的源码也没找到什么入口点。然后我去[这篇脚手架源码分析贴](https://github.com/dwqs/blog/issues/56)的下面提了个问，大佬回复的很快，大佬说将模版中vue的变量写法改成`{{raw}}`。高低立现啊！将vue文件中的`\{{raw}}`转义一下写成`\{{raw}}`在做正则匹配的时候自然不会匹配成`mustaches`表达式了orz
+
+2. **当你想用远程模版时，初始化命令到底该怎么写？**
+
+  公司内部的代码都放在公司gitlab仓库，将模版放在上面之后到底要怎么写初始化命令呢？首先我在github上搜了一圈，有人说从gitlab上拉代码的话你要这样写
+
+  ```
+  vue init -c gitlab:gitlab-host.com:username/my-template-repo project-name
+  ```
+  但是得到的结果是
+  
+  ```
+  vue-cli · Failed to download repo gitlab-host.com:username/my-template-rep: 'git clone' failed with status 128
+  ```
+  于是谷歌之，看到相关的比较古老的`vue cli`的issue，出现这种错误的原因是`～/.vue-templates`文件夹中已经有改template文件的缓存了。但是，这个issue提出来后就被修复了，我使用的已经是最新版本的脚手架了（虽然我还是抱着侥幸的心理将`～/.vue-templates`文件夹清空了试了好几下，还是不行）。然后根据github上的兄弟们的说法进行了各种排列组合的试验，要么出现上面的错误，要么404找不到repository。一个哥们说，既然`vue cli`从远程拉代码用的是[download-git-repo](https://github.com/flipxfx/download-git-repo/blob/master/index.js)那么为什么不去看一下它的代码怎么写的？顿时觉得很有道理啊，去看一下不就知道怎么写了吗，总比像个无头苍蝇到处乱撞的试要好吧（自己的一个很大的毛病就是总是不知道解决问题的要领😢）。下面的代码片段的功能就是根据输入的命令拼下载url。
+  
+```
+/**
+* Normalize a repo string.
+*
+* @param {String} repo
+* @return {Object}
+*/
+// 支持 github gitlab 以及 bitbucket，默认github。支持用户输入域名 仓库所属人名必须 仓库名必须 分支名默认master 
+function normalize (repo) {
+  var regex = /^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?$/
+  var match = regex.exec(repo)
+  var type = match[2] || 'github'
+  var origin = match[4] || null
+  var owner = match[5]
+  var name = match[6]
+  var checkout = match[8] || 'master'
+
+  if (origin == null) {
+    if (type === 'github')
+      origin = 'github.com'
+    else if (type === 'gitlab')
+      origin = 'gitlab.com'
+    else if (type === 'bitbucket')
+      origin = 'bitbucket.org'
+  }
+
+  return {
+    type: type,
+    origin: origin,
+    owner: owner,
+    name: name,
+    checkout: checkout
+  }
+}
+
+/**
+ * Adds protocol to url in none specified
+ *
+ * @param {String} url
+ * @return {String}
+ */
+// 没有头部协议时添加头部协议，如果用户输入中有clone标志，则用ssh链接，否则用https
+function addProtocol (origin, clone) {
+  if (!/^(f|ht)tps?:\/\//i.test(origin)) {
+    if (clone)
+      origin = 'git@' + origin
+    else
+      origin = 'https://' + origin
+  }
+
+  return origin
+}
+
+/**
+ * Return a zip or git url for a given `repo`.
+ *
+ * @param {Object} repo
+ * @return {String}
+ */
+function getUrl (repo, clone) {
+  var url
+
+  // Get origin with protocol and add trailing slash or colon (for ssh)
+  var origin = addProtocol(repo.origin, clone)
+  if (/^git\@/i.test(origin))
+    origin = origin + ':'
+  else
+    origin = origin + '/'
+
+  // Build url
+  if (clone) {
+    url = origin + repo.owner + '/' + repo.name + '.git'
+  } else {
+    if (repo.type === 'github')
+      url = origin + repo.owner + '/' + repo.name + '/archive/' + repo.checkout + '.zip'
+    else if (repo.type === 'gitlab')
+      url = origin + repo.owner + '/' + repo.name + '/repository/archive.zip?ref=' + repo.checkout
+    else if (repo.type === 'bitbucket')
+      url = origin + repo.owner + '/' + repo.name + '/get/' + repo.checkout + '.zip'
+    else
+      url = github(repo)
+  }
+
+  return url
+}
+
+  ```
+  看上面的代码之前我一直以为代码在gitlab上就用`gitlab:`，别人所说的username就是自己的用户名（其实是repository的owner）。看完之后发现我都错了，你以为的永远都不是你以为的orz。上面的代码非常的简单易懂，可以说看完就完全不用担心不会根据代码仓库的地址来写命令了。ps:既然问题不是大多数人提到的缓存问题，那为啥错误提示都是一样的orz pps:现在写出来的东西内容和排版都不太好，慢慢来吧😂
+
+
+
+</code>转义一下写成<code>\---
+title: 创建自己的vue模版时遇到的坑
+date: 2018-04-12 21:29:24
+tags: vue
+---
+
+
+  下载`vue cli`之后，在命令行中用如下命令可以新建一个初始的`vue + webpack`的项目。该初始化的项目中包含一些`webpack`的配置和空的目录结构。这个初始化的“空”项目其实就是用的[vue的官方模版](https://github.com/vuejs-templates/webpack)。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz
+<!--more-->
+
+```
+npm i -g vue-cli
+vue init webpack projectname
+
+vue init username/repositoryurl projectname
+
+vue init filepath projectname
+
+```
+
+1. **`vue`中的变量表示和`handlebars`中的变量表示冲突**
+
+  我有在模版的html中写变量，然后每次初始化生成项目之后就会发现变量都不见了。想想应该是`vue cli`中用到`handlebars`来渲染文件，然后`handlebars`将模版中`mustaches`表达式都替换了，vue的变量因找不到对应的`handlebars`变量惨遭淘汰。这种情况下该怎么办呢？怎样让vue的变量逃过handlebars的魔爪呢？
+
+  弱鸡如我，一直想的是能否给`handlebars`设置个作用文件的范围，某些文件就不要让`handlebars`插手了。空有这个想法，浏览了一遍vue脚手架的源码也没找到什么入口点。然后我去[这篇脚手架源码分析贴](https://github.com/dwqs/blog/issues/56)的下面提了个问，大佬回复的很快，大佬说将模版中vue的变量写法改成`{{raw}}`。高低立现啊！将vue文件中的`\{{raw}}`转义一下写成`\{{raw}}`在做正则匹配的时候自然不会匹配成`mustaches`表达式了orz
+
+2. **当你想用远程模版时，初始化命令到底该怎么写？**
+
+  公司内部的代码都放在公司gitlab仓库，将模版放在上面之后到底要怎么写初始化命令呢？首先我在github上搜了一圈，有人说从gitlab上拉代码的话你要这样写
+
+  ```
+  vue init -c gitlab:gitlab-host.com:username/my-template-repo project-name
+  ```
+  但是得到的结果是
+  
+  ```
+  vue-cli · Failed to download repo gitlab-host.com:username/my-template-rep: 'git clone' failed with status 128
+  ```
+  于是谷歌之，看到相关的比较古老的`vue cli`的issue，出现这种错误的原因是`～/.vue-templates`文件夹中已经有改template文件的缓存了。但是，这个issue提出来后就被修复了，我使用的已经是最新版本的脚手架了（虽然我还是抱着侥幸的心理将`～/.vue-templates`文件夹清空了试了好几下，还是不行）。然后根据github上的兄弟们的说法进行了各种排列组合的试验，要么出现上面的错误，要么404找不到repository。一个哥们说，既然`vue cli`从远程拉代码用的是[download-git-repo](https://github.com/flipxfx/download-git-repo/blob/master/index.js)那么为什么不去看一下它的代码怎么写的？顿时觉得很有道理啊，去看一下不就知道怎么写了吗，总比像个无头苍蝇到处乱撞的试要好吧（自己的一个很大的毛病就是总是不知道解决问题的要领😢）。下面的代码片段的功能就是根据输入的命令拼下载url。
+  
+```
+/**
+* Normalize a repo string.
+*
+* @param {String} repo
+* @return {Object}
+*/
+// 支持 github gitlab 以及 bitbucket，默认github。支持用户输入域名 仓库所属人名必须 仓库名必须 分支名默认master 
+function normalize (repo) {
+  var regex = /^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?$/
+  var match = regex.exec(repo)
+  var type = match[2] || 'github'
+  var origin = match[4] || null
+  var owner = match[5]
+  var name = match[6]
+  var checkout = match[8] || 'master'
+
+  if (origin == null) {
+    if (type === 'github')
+      origin = 'github.com'
+    else if (type === 'gitlab')
+      origin = 'gitlab.com'
+    else if (type === 'bitbucket')
+      origin = 'bitbucket.org'
+  }
+
+  return {
+    type: type,
+    origin: origin,
+    owner: owner,
+    name: name,
+    checkout: checkout
+  }
+}
+
+/**
+ * Adds protocol to url in none specified
+ *
+ * @param {String} url
+ * @return {String}
+ */
+// 没有头部协议时添加头部协议，如果用户输入中有clone标志，则用ssh链接，否则用https
+function addProtocol (origin, clone) {
+  if (!/^(f|ht)tps?:\/\//i.test(origin)) {
+    if (clone)
+      origin = 'git@' + origin
+    else
+      origin = 'https://' + origin
+  }
+
+  return origin
+}
+
+/**
+ * Return a zip or git url for a given `repo`.
+ *
+ * @param {Object} repo
+ * @return {String}
+ */
+function getUrl (repo, clone) {
+  var url
+
+  // Get origin with protocol and add trailing slash or colon (for ssh)
+  var origin = addProtocol(repo.origin, clone)
+  if (/^git\@/i.test(origin))
+    origin = origin + ':'
+  else
+    origin = origin + '/'
+
+  // Build url
+  if (clone) {
+    url = origin + repo.owner + '/' + repo.name + '.git'
+  } else {
+    if (repo.type === 'github')
+      url = origin + repo.owner + '/' + repo.name + '/archive/' + repo.checkout + '.zip'
+    else if (repo.type === 'gitlab')
+      url = origin + repo.owner + '/' + repo.name + '/repository/archive.zip?ref=' + repo.checkout
+    else if (repo.type === 'bitbucket')
+      url = origin + repo.owner + '/' + repo.name + '/get/' + repo.checkout + '.zip'
+    else
+      url = github(repo)
+  }
+
+  return url
+}
+
+  ```
+  看上面的代码之前我一直以为代码在gitlab上就用`gitlab:`，别人所说的username就是自己的用户名（其实是repository的owner）。看完之后发现我都错了，你以为的永远都不是你以为的orz。上面的代码非常的简单易懂，可以说看完就完全不用担心不会根据代码仓库的地址来写命令了。ps:既然问题不是大多数人提到的缓存问题，那为啥错误提示都是一样的orz pps:现在写出来的东西内容和排版都不太好，慢慢来吧😂
+
+
+
+</code>在做正则匹配的时候自然不会匹配成<code>mustaches</code>表达式了orz</p>
 </li>
 <li><p><strong>当你想用远程模版时，初始化命令到底该怎么写？</strong></p>
 <p>公司内部的代码都放在公司gitlab仓库，将模版放在上面之后到底要怎么写初始化命令呢？首先我在github上搜了一圈，有人说从gitlab上拉代码的话你要这样写</p>
