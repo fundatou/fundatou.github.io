@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Fundatou">
 <meta property="og:description" content="下载vue cli之后，在命令行中用如下命令可以新建一个初始的vue + webpack的项目。该初始化的项目中包含一些webpack的配置和空的目录结构。这个初始化的“空”项目其实就是用的vue的官方模版。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-14T07:21:27.000Z">
+<meta property="og:updated_time" content="2018-04-14T07:32:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建自己的vue模版时遇到的坑">
 <meta name="twitter:description" content="下载vue cli之后，在命令行中用如下命令可以新建一个初始的vue + webpack的项目。该初始化的项目中包含一些webpack的配置和空的目录结构。这个初始化的“空”项目其实就是用的vue的官方模版。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz">
@@ -325,7 +325,7 @@
 <ol>
 <li><p><strong><code>vue</code>中的变量表示和<code>handlebars</code>中的变量表示冲突</strong></p>
 <p>我有在模版的html中写变量，然后每次初始化生成项目之后就会发现变量都不见了。想想应该是<code>vue cli</code>中用到<code>handlebars</code>来渲染文件，然后<code>handlebars</code>将模版中<code>mustaches</code>表达式都替换了，vue的变量因找不到对应的<code>handlebars</code>变量惨遭淘汰。这种情况下该怎么办呢？怎样让vue的变量逃过handlebars的魔爪呢？</p>
-<p>弱鸡如我，一直想的是能否给<code>handlebars</code>设置个作用文件的范围，某些文件就不要让<code>handlebars</code>插手了。空有这个想法，浏览了一遍vue脚手架的源码也没找到什么入口点。然后我去<a href="https://github.com/dwqs/blog/issues/56" target="_blank" rel="noopener">这篇脚手架源码分析贴</a>的下面提了个问，大佬回复的很快，大佬说将模版中vue的变量写法改成\。高低立现啊！将vue文件中的转义一下写成\在做正则匹配的时候自然不会匹配成<code>mustaches</code>表达式了orz</p>
+<p>弱鸡如我，一直想的是能否给<code>handlebars</code>设置个作用文件的范围，某些文件就不要让<code>handlebars</code>插手了。空有这个想法，浏览了一遍vue脚手架的源码也没找到什么入口点。然后我去<a href="https://github.com/dwqs/blog/issues/56" target="_blank" rel="noopener">这篇脚手架源码分析贴</a>的下面提了个问，大佬回复的很快，大佬说将模版中vue的变量写法改成<code></code>。高低立现啊！将vue文件中的<code>\</code>转义一下写成<code>\</code>在做正则匹配的时候自然不会匹配成<code>mustaches</code>表达式了orz</p>
 </li>
 <li><p><strong>当你想用远程模版时，初始化命令到底该怎么写？</strong></p>
 <p>公司内部的代码都放在公司gitlab仓库，将模版放在上面之后到底要怎么写初始化命令呢？首先我在github上搜了一圈，有人说从gitlab上拉代码的话你要这样写</p>
