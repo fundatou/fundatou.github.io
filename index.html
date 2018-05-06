@@ -249,6 +249,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/js中关于数的犄角旮旯/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fundatou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fundatou">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/06/js中关于数的犄角旮旯/" itemprop="url">js中关于数的犄角旮旯</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T11:56:11+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2>数字Number</h2>
+<h3><a href="https://zh.wikipedia.org/zh-cn/IEEE_754" target="_blank" rel="noopener">IEEE二进制浮点数算术标准</a></h3>
+<p>浮点数的实际值 = 符号位 * 指数偏移值 * 分数值
+指数偏移值 = 指数编码值 - 固定值
+固定值 = 2^(e - 1) - 1
+e = 指数域的比特位数</p>
+<p><img src="/2018/05/06/js中关于数的犄角旮旯/pic1.png" title="数值存储的比特位表示"></p>
+<h3>JS中的数字表示</h3>
+<p>JS中Number采用64位二进制数表示，其中1位符号位，11位指数            			<br>
+位以及52位有效数据位。</p>
+<p><img src="/2018/05/06/js中关于数的犄角旮旯/pic2.png" title="指数举例"></p>
+<p>JS中还有一些特殊值的表示如下表所示</p>
+<p><img src="/2018/05/06/js中关于数的犄角旮旯/pic3.png" title="特殊值示例"></p>
+<p>52位有效数字加上整数部分默认隐含的1（<a href="https://zh.wikipedia.org/zh-cn/IEEE_754#cite_ref-2" target="_blank" rel="noopener">见由IEEE 754对“规约形式的浮点数”的规定</a>）能表示的最大的数是2^53 - 1，JS中能精确表示到个位的最大整数是2^53 - 1，内存模型见下图1。再往后加1是2^53，内存模型如下图2所示。</p>
+<p><img src="/2018/05/06/js中关于数的犄角旮旯/pic4.png">
+<img src="/2018/05/06/js中关于数的犄角旮旯/pic5.png"></p>
+<p>从2^53开始，第一个“尾数”被舍弃，每两个值都有一个不精确，准确的说是2^53&lt;= n &lt;2^54中的数会出现每2个值有一个不精确，2^54&lt;= n &lt;2^55中的数会出现每4个值有3个不精确，2^55&lt;= n &lt;2^56中的数会出现每8个值有7个不精确，总结出来就是2^(52+k)&lt;=n&lt;2^(52+k+1)中的数会出现每2^k中会有2^k-1个数不精确。
+对照下图（<a href="http://2ality.com/2012/04/number-encoding.html" target="_blank" rel="noopener">来自大神的文章</a>）比较好理解。64位双精度浮点数表示法中，有效数字只有52位，能表示的最大的精确的数是2^53 - 1（就是Number.MAX_SAFE_INTEGER），2^53&lt;= n &lt;2^54之间的数字的表示靠的是指数的进位，此时指数进一位，代表有效数字部分进两位，因此可以想像成如下图所示的最后一个“有效数字位”为0，并且只能为0，最后的“有效数字”只能被舍弃，无法表示，因此每两个数字会出现一个数字不精确 。依此类推，当指数部分进两位时，代表有效数字部分进四位，如下图所示的最后两个“有效数字”为0，无法表示，因此每四个数字会有三个数字不精确。</p>
+<p><img src="/2018/05/06/js中关于数的犄角旮旯/pic6.png"></p>
+<p>JS中能表示的最大整数是(2^53 - 1)*2^(2046-1023-52)，也就是Number.MAX_VALUE表示的值。能表示的最小正数是2^(1-1023)*2^(-52)，也就是Number.MIN_VALUE表示的值。内存模型分别如下图所示。</p>
+<p><img src="/2018/05/06/js中关于数的犄角旮旯/pic7.png" title="Number.MAX_VALUE">
+<img src="/2018/05/06/js中关于数的犄角旮旯/pic8.png" title="Number.MIN_VALUE"></p>
+<h2>JS中的数组边界</h2>
+<p>JS中数组的最大长度为2^32 - 1。当数组越界时的情况可以看下面代码片段及输出结果。</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">const maxLength = Math.pow(2, 32) - 1;</span><br><span class="line">let a = [];</span><br><span class="line">a[maxLength - 1] = &apos;最大索引&apos;;</span><br><span class="line">console.log(a.length);</span><br><span class="line">// 4294967295</span><br><span class="line">try &#123;</span><br><span class="line">    a.push(&apos;testLength1&apos;, &apos;testLength2&apos;);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">    console.log(e.message);</span><br><span class="line">    // Invalid array length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(a.length);</span><br><span class="line">// 4294967295</span><br><span class="line">console.log(a[maxLength], a[maxLength + 1]);</span><br><span class="line">// testLength1 testLength2</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">    a.push(&apos;testlength3&apos;, &apos;testlength4&apos;);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">    console.log(e.message);</span><br><span class="line">    // Invalid array length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(a.length);</span><br><span class="line">// 4294967295</span><br><span class="line">console.log(a[maxLength], a[maxLength + 1], a[maxLength + 2]);</span><br><span class="line">// testlength3 testlength4 undefined</span><br></pre></td></tr></table></figure></p>
+<p>数组就是“比较特殊”的对象，在Array.prototype.push方法成功执行时，先是创建键值对，以此时的length作为索引，将数据加入到“对象”中，然后设置length属性为最大的索引值加1。因此上面代码片段中的错都是在增加length属性的时候报的，length的值不会再增加，但是值已经成功存进去，并且能通过对应的索引取到该值。因为每次push都是在当前length索引处加入新元素，因此再次push时只会是覆盖之前的值，而不是在后面追加。</p>
+<h2>JS中的+0和-0</h2>
+<p>按照第一部分说的JS中Number的数字的表示法，可以推想到JS中会存在分别带“+”和“-”的两个0。平常使用时不加符号的话默认是“+0”。</p>
+<ul>
+<li>+0和-0用“===”做比较时得到的结果是true，无法用“===”做区分</li>
+<li>“&lt;”和“&gt;”也无法区分两者</li>
+</ul>
+<h3>如何区分两个0</h3>
+<ul>
+<li>用任意正数除以+0得到的结果是+Infinity，反之得到-Infinity。+Infinity和-Infinity可以直接用“===”比较。</li>
+</ul>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNegativeZero(x) &#123;</span><br><span class="line">    return x === 0 &amp;&amp; ( 1/ x &lt; 0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>用JS中现有的方法区分。JS中有用到一种Same-value的比较算法，这种比较算法可以用来做“真正严格”意义上的比较。Set结构中不能添加重复的值，其中所使用的就是Same-value比较算法。还有object.is()，判断两个值是否相等（当然也可以判断NaN）。还有一种<a href="http://www.wirfs-brock.com/allen/posts/128" target="_blank" rel="noopener">比较骚气的解法</a>，使用Object.defineProperty()，在试图修改不可改变的属性时，如果值确实修改了，将会抛出异常。代码如下。（<a href="http://www.wirfs-brock.com/allen/posts/128" target="_blank" rel="noopener">此文档中有JS中区别对待-0和+0操作的不完全列表</a>）</li>
+</ul>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function isNegativeZero(x) &#123;</span><br><span class="line">    if (x !== 0) return false;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    Object.defineProperty(obj, &apos;z&apos;, &#123;value: -0, configurable: false&#125;);</span><br><span class="line">    try &#123;</span><br><span class="line">        // 如果x的值和z属性当前值不相等的话，就会抛出异常</span><br><span class="line">        Object.defineProperty(obj, &apos;z&apos;, &#123;value: x &#125;);</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3>MDN怎么说</h3>
+<p>除非是有特殊计算需要区分+0和-0，否则用“===”严格等号NaN！==NaN，+0===-0也挺好。毕竟还有isNaN判断NaN值，但是想要想出让object.is()不影响两个0的比较，将是一件头痛的事～</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/12/vue-template/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -319,14 +481,27 @@
 
       
         
-          <p>  下载<code>vue cli</code>之后，在命令行中用如下命令可以新建一个初始的<code>vue + webpack</code>的项目。该初始化的项目中包含一些<code>webpack</code>的配置和空的目录结构。这个初始化的“空”项目其实就是用的<a href="https://github.com/vuejs-templates/webpack" target="_blank" rel="noopener">vue的官方模版</a>。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/12/vue-template/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <p>下载<code>vue cli</code>之后，在命令行中用如下命令可以新建一个初始的<code>vue + webpack</code>的项目。该初始化的项目中包含一些<code>webpack</code>的配置和空的目录结构。这个初始化的“空”项目其实就是用的<a href="https://github.com/vuejs-templates/webpack" target="_blank" rel="noopener">vue的官方模版</a>。当然是可以写自己的定制模版的！第二个命令就是从远程的代码仓库拉去模版，第三个命令是使用自己本地的模版。看起来真的是简单明了对不对，但是一动手还是会遇到坑orz
+&lt;!--more--&gt;</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm i -g vue-cli</span><br><span class="line">vue init webpack projectname</span><br><span class="line"></span><br><span class="line">vue init username/repositoryurl projectname</span><br><span class="line"></span><br><span class="line">vue init filepath projectname</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><strong><code>vue</code>中的变量表示和<code>handlebars</code>中的变量表示冲突</strong></li>
+</ol>
+<p>我有在模版的html中写变量，然后每次初始化生成项目之后就会发现变量都不见了。想想应该是<code>vue cli</code>中用到<code>handlebars</code>来渲染文件，然后<code>handlebars</code>将模版中<code>mustaches</code>表达式都替换了，vue的变量因找不到对应的<code>handlebars</code>变量惨遭淘汰。这种情况下该怎么办呢？怎样让vue的变量逃过handlebars的魔爪呢？</p>
+<p>弱鸡如我，一直想的是能否给<code>handlebars</code>设置个作用文件的范围，某些文件就不要让<code>handlebars</code>插手了。空有这个想法，浏览了一遍vue脚手架的源码也没找到什么入口点。然后我去<a href="https://github.com/dwqs/blog/issues/56" target="_blank" rel="noopener">这篇脚手架源码分析贴</a>的下面提了个问，大佬回复的很快，大佬说将模版中vue的变量双括号前加个<code>\</code>转义符。高低立现啊！转义之后在做正则匹配的时候自然不会匹配成<code>mustaches</code>表达式了orz（啪啪打脸的是，在hexo中也存在这个问题，双括号被用来匹配变量了，不知道怎么才能显示出来😂）</p>
+<ol start="2">
+<li><strong>当你想用远程模版时，初始化命令到底该怎么写？</strong></li>
+</ol>
+<p>公司内部的代码都放在公司gitlab仓库，将模版放在上面之后到底要怎么写初始化命令呢？首先我在github上搜了一圈，有人说从gitlab上拉代码的话你要这样写</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init -c gitlab:gitlab-host.com:username/my-template-repo project-name</span><br></pre></td></tr></table></figure></p>
+<p>但是得到的结果是</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue-cli · Failed to download repo gitlab-host.com:username/my-template-rep: &apos;git clone&apos; failed with status 128</span><br></pre></td></tr></table></figure></p>
+<p>于是谷歌之，看到相关的比较古老的<code>vue cli</code>的issue，出现这种错误的原因是<code>～/.vue-templates</code>文件夹中已经有改template文件的缓存了。但是，这个issue提出来后就被修复了，我使用的已经是最新版本的脚手架了（虽然我还是抱着侥幸的心理将<code>～/.vue-templates</code>文件夹清空了试了好几下，还是不行）。然后根据github上的兄弟们的说法进行了各种排列组合的试验，要么出现上面的错误，要么404找不到repository。一个哥们说，既然<code>vue cli</code>从远程拉代码用的是<a href="https://github.com/flipxfx/download-git-repo/blob/master/index.js" target="_blank" rel="noopener">download-git-repo</a>那么为什么不去看一下它的代码怎么写的？顿时觉得很有道理啊，去看一下不就知道怎么写了吗，总比像个无头苍蝇到处乱撞的试要好吧（自己的一个很大的毛病就是总是不知道解决问题的要领😢）。下面的代码片段的功能就是根据输入的命令拼下载url。</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* Normalize a repo string.</span><br><span class="line">*</span><br><span class="line">* @param &#123;String&#125; repo</span><br><span class="line">* @return &#123;Object&#125;</span><br><span class="line">*/</span><br><span class="line">// 支持 github gitlab 以及 bitbucket，默认github。支持用户输入域名 仓库所属人名必须 仓库名必须 分支名默认master </span><br><span class="line">function normalize (repo) &#123;</span><br><span class="line">  var regex = /^((github|gitlab|bitbucket):)?((.+):)?([^/]+)\/([^#]+)(#(.+))?$/</span><br><span class="line">  var match = regex.exec(repo)</span><br><span class="line">  var type = match[2] || &apos;github&apos;</span><br><span class="line">  var origin = match[4] || null</span><br><span class="line">  var owner = match[5]</span><br><span class="line">  var name = match[6]</span><br><span class="line">  var checkout = match[8] || &apos;master&apos;</span><br><span class="line"></span><br><span class="line">  if (origin == null) &#123;</span><br><span class="line">    if (type === &apos;github&apos;)</span><br><span class="line">      origin = &apos;github.com&apos;</span><br><span class="line">    else if (type === &apos;gitlab&apos;)</span><br><span class="line">      origin = &apos;gitlab.com&apos;</span><br><span class="line">    else if (type === &apos;bitbucket&apos;)</span><br><span class="line">      origin = &apos;bitbucket.org&apos;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return &#123;</span><br><span class="line">    type: type,</span><br><span class="line">    origin: origin,</span><br><span class="line">    owner: owner,</span><br><span class="line">    name: name,</span><br><span class="line">    checkout: checkout</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Adds protocol to url in none specified</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;String&#125; url</span><br><span class="line"> * @return &#123;String&#125;</span><br><span class="line"> */</span><br><span class="line">// 没有头部协议时添加头部协议，如果用户输入中有clone标志，则用ssh链接，否则用https</span><br><span class="line">function addProtocol (origin, clone) &#123;</span><br><span class="line">  if (!/^(f|ht)tps?:\/\//i.test(origin)) &#123;</span><br><span class="line">    if (clone)</span><br><span class="line">      origin = &apos;git@&apos; + origin</span><br><span class="line">    else</span><br><span class="line">      origin = &apos;https://&apos; + origin</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return origin</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Return a zip or git url for a given `repo`.</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;Object&#125; repo</span><br><span class="line"> * @return &#123;String&#125;</span><br><span class="line"> */</span><br><span class="line">function getUrl (repo, clone) &#123;</span><br><span class="line">  var url</span><br><span class="line"></span><br><span class="line">  // Get origin with protocol and add trailing slash or colon (for ssh)</span><br><span class="line">  var origin = addProtocol(repo.origin, clone)</span><br><span class="line">  if (/^git\@/i.test(origin))</span><br><span class="line">    origin = origin + &apos;:&apos;</span><br><span class="line">  else</span><br><span class="line">    origin = origin + &apos;/&apos;</span><br><span class="line"></span><br><span class="line">  // Build url</span><br><span class="line">  if (clone) &#123;</span><br><span class="line">    url = origin + repo.owner + &apos;/&apos; + repo.name + &apos;.git&apos;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    if (repo.type === &apos;github&apos;)</span><br><span class="line">      url = origin + repo.owner + &apos;/&apos; + repo.name + &apos;/archive/&apos; + repo.checkout + &apos;.zip&apos;</span><br><span class="line">    else if (repo.type === &apos;gitlab&apos;)</span><br><span class="line">      url = origin + repo.owner + &apos;/&apos; + repo.name + &apos;/repository/archive.zip?ref=&apos; + repo.checkout</span><br><span class="line">    else if (repo.type === &apos;bitbucket&apos;)</span><br><span class="line">      url = origin + repo.owner + &apos;/&apos; + repo.name + &apos;/get/&apos; + repo.checkout + &apos;.zip&apos;</span><br><span class="line">    else</span><br><span class="line">      url = github(repo)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return url</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看上面的代码之前我一直以为代码在gitlab上就用<code>gitlab:</code>，别人所说的username就是自己的用户名（其实是repository的owner）。看完之后发现我都错了，你以为的永远都不是你以为的orz。上面的代码非常的简单易懂，可以说看完就完全不用担心不会根据代码仓库的地址来写命令了。ps:既然问题不是大多数人提到的缓存问题，那为啥错误提示都是一样的orz pps:现在写出来的东西内容和排版都不太好，慢慢来吧😂</p>
+
+          
         
       
     </div>
@@ -445,128 +620,8 @@
         
           
             <p>##《CSS世界》笔记##</p>
-<p>- </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/JS中关于数的犄角旮旯/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fundatou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fundatou">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/10/JS中关于数的犄角旮旯/" itemprop="url">“JS中关于数的犄角旮旯”</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T22:27:13+08:00">
-                2018-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>数字Number</li>
+<ul>
+<li></li>
 </ul>
 
           
@@ -686,14 +741,14 @@
 
       
         
-          <h1 id="rotate"><a href="#rotate" class="headerlink" title="rotate"></a>rotate</h1><p>关于rotate，我觉得<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing" target="_blank" rel="noopener">MDN上一段画五角星的代码</a>很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/06/canvas-learning/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h1>rotate</h1>
+<p>关于rotate，我觉得<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing" target="_blank" rel="noopener">MDN上一段画五角星的代码</a>很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。
+&lt;!--more--&gt;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function drawStar(ctx, r) &#123;</span><br><span class="line">    ctx.save();</span><br><span class="line">    ctx.beginPath()</span><br><span class="line">    // 将五角星的中心点设置为坐标远点，先将绘画的起点移动到五角星</span><br><span class="line">    // 的一个角上，现在该点处在水平坐标轴上</span><br><span class="line">    ctx.moveTo(r,0);</span><br><span class="line">    // 五角星总共是10条边，最后一条边用 closePath 绘制，因此绘制过程循环9次</span><br><span class="line">    for (var i=0;i&lt;9;i++)&#123;</span><br><span class="line">        // 利用rotate方法每次将整个坐标系顺时针旋转 36度，这样绘制的</span><br><span class="line">        // 下一个点就又在水平坐标轴上，只需要知道五角星中该点到中心点的距离即可</span><br><span class="line">        ctx.rotate(Math.PI/5);</span><br><span class="line">        if(i%2 == 0) &#123;</span><br><span class="line">        // 偶数次绘制的时候绘制内凹的角顶点</span><br><span class="line">        ctx.lineTo((r/0.525731)*0.200811,0);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">        ctx.lineTo(r,0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ctx.closePath();</span><br><span class="line">    ctx.fill();</span><br><span class="line">    ctx.restore();ß</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从上面画五角星的过程就能看出，调用rotate的时候坐标原点保持不变，旋转坐标系，并且不会之前已经绘制的点的绝对位置。</p>
+
+          
         
       
     </div>
