@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/05/06/js-number/pic6.png">
 <meta property="og:image" content="http://yoursite.com/2018/05/06/js-number/pic7.png">
 <meta property="og:image" content="http://yoursite.com/2018/05/06/js-number/pic8.png">
-<meta property="og:updated_time" content="2018-05-06T09:30:26.000Z">
+<meta property="og:updated_time" content="2018-05-10T01:03:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js中关于数的犄角旮旯">
 <meta name="twitter:description" content="数字NumberIEEE二进制浮点数算术标准浮点数的实际值 = 符号位 * 指数偏移值 * 分数值指数偏移值 = 指数编码值 - 固定值固定值 = 2^(e - 1) - 1e = 指数域的比特位数">
@@ -346,6 +346,7 @@
 <h2 id="JS中的数组边界"><a href="#JS中的数组边界" class="headerlink" title="JS中的数组边界"></a>JS中的数组边界</h2><p>JS中数组的最大长度为2^32 - 1。当数组越界时的情况可以看下面代码片段及输出结果。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">const maxLength = Math.pow(2, 32) - 1;</span><br><span class="line">let a = [];</span><br><span class="line">a[maxLength - 1] = &apos;最大索引&apos;;</span><br><span class="line">console.log(a.length);</span><br><span class="line">// 4294967295</span><br><span class="line">try &#123;</span><br><span class="line">    a.push(&apos;testLength1&apos;, &apos;testLength2&apos;);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">    console.log(e.message);</span><br><span class="line">    // Invalid array length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(a.length);</span><br><span class="line">// 4294967295</span><br><span class="line">console.log(a[maxLength], a[maxLength + 1]);</span><br><span class="line">// testLength1 testLength2</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">    a.push(&apos;testlength3&apos;, &apos;testlength4&apos;);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">    console.log(e.message);</span><br><span class="line">    // Invalid array length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(a.length);</span><br><span class="line">// 4294967295</span><br><span class="line">console.log(a[maxLength], a[maxLength + 1], a[maxLength + 2]);</span><br><span class="line">// testlength3 testlength4 undefined</span><br></pre></td></tr></table></figure>
 <p>数组就是“比较特殊”的对象，在Array.prototype.push方法成功执行时，先是创建键值对，以此时的length作为索引，将数据加入到“对象”中，然后设置length属性为最大的索引值加1。因此上面代码片段中的错都是在增加length属性的时候报的，length的值不会再增加，但是值已经成功存进去，并且能通过对应的索引取到该值。因为每次push都是在当前length索引处加入新元素，因此再次push时只会是覆盖之前的值，而不是在后面追加。</p>
+<p>关于数组最大索引：<a href="http://www.cnblogs.com/ziyunfei/archive/2012/11/28/2793435.html" target="_blank" rel="noopener">JavaScript数组能越界？</a></p>
 <h2 id="JS中的-0和-0"><a href="#JS中的-0和-0" class="headerlink" title="JS中的+0和-0"></a>JS中的+0和-0</h2><p>按照第一部分说的JS中Number的数字的表示法，可以推想到JS中会存在分别带“+”和“-”的两个0。平常使用时不加符号的话默认是“+0”。</p>
 <ul>
 <li>+0和-0用“===”做比较时得到的结果是true，无法用“===”做区分</li>
@@ -360,6 +361,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function isNegativeZero(x) &#123;</span><br><span class="line">    if (x !== 0) return false;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    Object.defineProperty(obj, &apos;z&apos;, &#123;value: -0, configurable: false&#125;);</span><br><span class="line">    try &#123;</span><br><span class="line">        // 如果x的值和z属性当前值不相等的话，就会抛出异常</span><br><span class="line">        Object.defineProperty(obj, &apos;z&apos;, &#123;value: x &#125;);</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="MDN怎么说"><a href="#MDN怎么说" class="headerlink" title="MDN怎么说"></a>MDN怎么说</h3><p>除非是有特殊计算需要区分+0和-0，否则用“===”严格等号NaN！==NaN，+0===-0也挺好。毕竟还有isNaN判断NaN值，但是想要想出让object.is()不影响两个0的比较，将是一件头痛的事～</p>
+<p>关于+0和-0:<a href="http://www.cnblogs.com/ziyunfei/archive/2012/12/10/2777099.html" target="_blank" rel="noopener">Javascript中的两个0</a></p>
 
       
     </div>
@@ -399,6 +401,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/TypeScript-learning/" rel="prev" title="TypeScript_learning">
+                TypeScript_learning <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -475,7 +481,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
