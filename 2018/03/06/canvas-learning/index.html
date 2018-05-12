@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/03/06/canvas-learning/a9.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/06/canvas-learning/a5.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/06/canvas-learning/a2.png">
-<meta property="og:updated_time" content="2018-05-12T14:56:42.000Z">
+<meta property="og:updated_time" content="2018-05-12T15:07:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="canvas基础笔记">
 <meta name="twitter:description" content="rotate关于rotate，我觉得MDN上一段画五角星的代码很好的帮助我理解了rotate。下面是从MDN上copy过来的代码，我只是加上点注释。">
@@ -333,25 +333,25 @@
 </blockquote>
 <p>co是组合操作之后的最终颜色，且包含alpha值。αs是源图形的透明度值，Fa由组合类型决定，Cs是源图形的颜色值，不包含颜色透明度。目标图形参数说明同上。</p>
 <p>下表是从该文档中整理出来的12中操作类型的最终参数</p>
-<img src="/2018/03/06/canvas-learning/table.png">
+<p><img src="./table.png"></p>
 <p>在<a href="https://github.com/fundatou/learn-canvas/blob/master/canvas_xor.html" target="_blank" rel="noopener">demo</a>(23行和127行）中参数如下</p>
 <blockquote>
 <p>αs = 0.9<br>αb = 1<br>Fa = 0<br>Fb = 0.1<br>αo = 0.9 *  0 + 1 *  0.1 = 0.1</p>
 </blockquote>
 <p>蒙层透明度是0.9，中间组合部分透明度是0.1，因此还能看出镂空效果。</p>
-<img src="/2018/03/06/canvas-learning/a9.png" title="[400px]">
+<p><img src="./a9.png" width="400px"></p>
 <p>但是如果想要底下的图片能看的更清晰而将蒙层透明度降低那效果会完全不一样。比如我将蒙层透明度降低到0.5，参数计算如下。</p>
 <blockquote>
 <p>αs = 0.5<br>αb = 1<br>Fa = 0<br>Fb = 0.5<br>αo = 0.5 *  0 + 1 *  0.5 = 0.5</p>
 </blockquote>
 <p>此时蒙层透明度是0.5，中间组合部分计算出来的透明度也是0.5，在颜色一致的情况下，看不出任何效果，仿佛是globalCompositeOperation属性没起作用（不明所以时的我一阵恐慌，以为是自己使用姿势不对😂）。</p>
-<img src="/2018/03/06/canvas-learning/a5.png" title="[400px]">
+<p><img src="./a5.png" width="400px"></p>
 <p>如果我们继续降低蒙层的透明度到0.2，参数计算如下</p>
 <blockquote>
 <p>αs = 0.2<br>αb = 1<br>Fa = 0<br>Fb = 0.8<br>αo = 0.2 *  0 + 1 *  0.8 = 0.8</p>
 </blockquote>
 <p>效果将如下图所示，中间组合部分的颜色反而比周围的都要深，至少刚开始不知道上述的计算方式时，这种效果是与我对xor的认知是不符的（就是自以为是的以为不管怎么样应该都是出现中间镂空效果😂）</p>
-<img src="/2018/03/06/canvas-learning/a2.png" title="[400px]">
+<p><img src="./a2.png" width="400px"></p>
 <p>ps：以后还是要注册个codepen账号，这样比较方便看demo效果。现在如果各位看官想要看效果的话请自行在github上下载代码，然后在浏览器中运行～</p>
 
       
