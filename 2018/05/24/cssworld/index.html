@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="float 理论浮动的本质是为了实现文字环绕效果，为了实现该效果，有两个要点   被环绕的元素挣脱其父元素的束缚，让底下跟随的元素可以和浮动元素在一个水平线上（浮动元素脱离了文档流，其父元素的高度无法由其撑开） 底下的元素上移之后不会覆盖浮动元素（行框盒子和浮动元素不可重叠），表现出围绕效果">
+<meta name="description" content="float理论浮动的本质是为了实现文字环绕效果，为了实现该效果，有两个要点 - 被环绕的元素挣脱其父元素的束缚，让底下跟随的元素可以和浮动元素在一个水平线上（浮动元素脱离了文档流，其父元素的高度无法由其撑开） - 底下的元素上移之后不会覆盖浮动元素（行框盒子和浮动元素不可重叠），表现出围绕效果">
 <meta name="keywords" content="css">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cssworld">
+<meta property="og:title" content="《CSS世界》笔记">
 <meta property="og:url" content="http://yoursite.com/2018/05/24/cssworld/index.html">
 <meta property="og:site_name" content="Fundatou">
-<meta property="og:description" content="float 理论浮动的本质是为了实现文字环绕效果，为了实现该效果，有两个要点   被环绕的元素挣脱其父元素的束缚，让底下跟随的元素可以和浮动元素在一个水平线上（浮动元素脱离了文档流，其父元素的高度无法由其撑开） 底下的元素上移之后不会覆盖浮动元素（行框盒子和浮动元素不可重叠），表现出围绕效果">
+<meta property="og:description" content="float理论浮动的本质是为了实现文字环绕效果，为了实现该效果，有两个要点 - 被环绕的元素挣脱其父元素的束缚，让底下跟随的元素可以和浮动元素在一个水平线上（浮动元素脱离了文档流，其父元素的高度无法由其撑开） - 底下的元素上移之后不会覆盖浮动元素（行框盒子和浮动元素不可重叠），表现出围绕效果">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/05/24/cssworld/floatLeftCenterRight.png">
 <meta property="og:image" content="http://yoursite.com/2018/05/24/cssworld/floatLeft.png">
 <meta property="og:image" content="http://yoursite.com/2018/05/24/cssworld/floatBFC.png">
-<meta property="og:updated_time" content="2018-05-24T15:17:51.000Z">
+<meta property="og:updated_time" content="2018-05-24T15:22:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cssworld">
-<meta name="twitter:description" content="float 理论浮动的本质是为了实现文字环绕效果，为了实现该效果，有两个要点   被环绕的元素挣脱其父元素的束缚，让底下跟随的元素可以和浮动元素在一个水平线上（浮动元素脱离了文档流，其父元素的高度无法由其撑开） 底下的元素上移之后不会覆盖浮动元素（行框盒子和浮动元素不可重叠），表现出围绕效果">
+<meta name="twitter:title" content="《CSS世界》笔记">
+<meta name="twitter:description" content="float理论浮动的本质是为了实现文字环绕效果，为了实现该效果，有两个要点 - 被环绕的元素挣脱其父元素的束缚，让底下跟随的元素可以和浮动元素在一个水平线上（浮动元素脱离了文档流，其父元素的高度无法由其撑开） - 底下的元素上移之后不会覆盖浮动元素（行框盒子和浮动元素不可重叠），表现出围绕效果">
 <meta name="twitter:image" content="http://yoursite.com/2018/05/24/cssworld/floatLeftCenterRight.png">
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <title>cssworld | Fundatou</title>
+  <title>《CSS世界》笔记 | Fundatou</title>
   
 
 
@@ -274,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">cssworld</h1>
+          <h1 class="post-title" itemprop="name headline">《CSS世界》笔记</h1>
         
 
         <div class="post-meta">
@@ -324,34 +324,19 @@
       
 
       
-        <h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><ol>
-<li>理论<br>浮动的本质是为了实现文字环绕效果，为了实现该效果，有两个要点</li>
-</ol>
-<ul>
-<li>被环绕的元素挣脱其父元素的束缚，让底下跟随的元素可以和浮动元素在一个水平线上（浮动元素脱离了文档流，其父元素的高度无法由其撑开）</li>
-<li>底下的元素上移之后不会覆盖浮动元素（行框盒子和浮动元素不可重叠），表现出围绕效果</li>
-</ul>
-<a id="more"></a>
-<ol>
-<li><p>例子<br><a href="http://demo.cssworld.cn/6/1-1.php" target="_blank" rel="noopener">注意这个例子</a><br>这里例子中，为了不影响下面的元素，将父元素和浮动元素设置成一样的高度，但是由于前面章节中提到过的“幽灵节点”，导致img标签的父级元素高度比设置的图片高度要大，因此father元素下面的文字也受到该浮动元素的影响，产生了环绕效果。解决的方法是去掉“幽灵节点”。但是最根本的方法还是清除浮动带来的影响。</p>
-</li>
-<li><p>术语</p>
-</li>
-</ol>
-<ul>
+        <h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><h4 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h4><pre><code>浮动的本质是为了实现文字环绕效果，为了实现该效果，有两个要点
+- 被环绕的元素挣脱其父元素的束缚，让底下跟随的元素可以和浮动元素在一个水平线上（浮动元素脱离了文档流，其父元素的高度无法由其撑开）
+- 底下的元素上移之后不会覆盖浮动元素（行框盒子和浮动元素不可重叠），表现出围绕效果
+</code></pre><a id="more"></a>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p><a href="http://demo.cssworld.cn/6/1-1.php" target="_blank" rel="noopener">注意这个例子</a><br>这里例子中，为了不影响下面的元素，将父元素和浮动元素设置成一样的高度，但是由于前面章节中提到过的“幽灵节点”，导致img标签的父级元素高度比设置的图片高度要大，因此father元素下面的文字也受到该浮动元素的影响，产生了环绕效果。解决的方法是去掉“幽灵节点”。但是最根本的方法还是清除浮动带来的影响。</p>
+<h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><ul>
 <li>“浮动锚点”是float元素所在“流”中的一个点，这个点本身并不浮动，更像一个没有margin、border和padding的空的内联元素（内联元素产生行框盒子）</li>
 <li>“浮动参考”指的是浮动元素对齐参考的实体（css中浮动元素的“浮动参考”是“行框盒子”）</li>
 </ul>
-<ol>
-<li><p>例子<br><a href="http://demo.cssworld.cn/6/1-2.php" target="_blank" rel="noopener">利用float实现两栏一侧定宽的自适应布局</a><br>右侧的元素没有浮动也没有设置宽度，很好的保留了流动性</p>
-</li>
-<li><p>例子<br><a href="https://codepen.io/fundatou/pen/xjMBzw" target="_blank" rel="noopener">中间内容居中的左中右布局</a><br>左右元素浮动，中间的元素设置左右margin<br><img src="./floatLeftCenterRight.png" width="400"></p>
-</li>
-<li><p>理解<br>clear属性是让自身不能和<em>前面</em>的浮动元素在一行显示，<code>clear: left</code>是不和前面左浮动的元素在一行显示，<code>clear: right</code>是不和前面右浮动的元素在一行显示。<br>clear属性只有块级元素才有效，而<code>::after</code>等伪元素默认都是内联水平，因此必须设置<code>display</code>值`</p>
-</li>
-<li><p>理论<br>触发BFC的情况</p>
-</li>
-</ol>
+<h4 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h4><p><a href="http://demo.cssworld.cn/6/1-2.php" target="_blank" rel="noopener">利用float实现两栏一侧定宽的自适应布局</a><br>右侧的元素没有浮动也没有设置宽度，很好的保留了流动性</p>
+<h4 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h4><p><a href="https://codepen.io/fundatou/pen/xjMBzw" target="_blank" rel="noopener">中间内容居中的左中右布局</a><br>左右元素浮动，中间的元素设置左右margin<br><img src="./floatLeftCenterRight.png" width="400"></p>
+<h4 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h4><p>clear属性是让自身不能和<em>前面</em>的浮动元素在一行显示，<code>clear: left</code>是不和前面左浮动的元素在一行显示，<code>clear: right</code>是不和前面右浮动的元素在一行显示。<br>clear属性只有块级元素才有效，而<code>::after</code>等伪元素默认都是内联水平，因此必须设置<code>display</code>值`</p>
+<h4 id="理论-1"><a href="#理论-1" class="headerlink" title="理论"></a>理论</h4><p>触发BFC的情况</p>
 <ul>
 <li><html>根元素</html></li>
 <li>float的值不为none</li>
@@ -359,28 +344,17 @@
 <li>display的值为table-cell、table-caption和inline-block中的任何一个</li>
 <li>position的值不为relative和static</li>
 </ul>
-<ol>
-<li><p>例子<br>普通流体元素设置<code>overflow: hidden</code>后（BFC），会自动填满容器中除了浮动元素以外的剩余空间，形成自适应布局效果。可以通过给浮动元素加<code>margin-right padding-right border-right</code>或者给非浮动元素加<code>padding-left border-left</code>来设置间隙。但是注意给非浮动元素设置<code>margin-left</code>的话，值就不是间隙的值，还要根据浮动元素的宽度来设置。<br><img src="./floatLeft.png" width="400"><br><img src="./floatBFC.png" width="400"></p>
-</li>
-<li><p>总结<br>产生BFC属性的适用情况</p>
-</li>
-</ol>
+<h4 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h4><p>普通流体元素设置<code>overflow: hidden</code>后（BFC），会自动填满容器中除了浮动元素以外的剩余空间，形成自适应布局效果。可以通过给浮动元素加<code>margin-right padding-right border-right</code>或者给非浮动元素加<code>padding-left border-left</code>来设置间隙。但是注意给非浮动元素设置<code>margin-left</code>的话，值就不是间隙的值，还要根据浮动元素的宽度来设置。<br><img src="./floatLeft.png" width="400"><br><img src="./floatBFC.png" width="400"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>产生BFC属性的适用情况</p>
 <ul>
 <li><code>overflow: auto/hidden</code>适用于IE7及以上版本浏览器</li>
 <li><code>display: inline-block</code>适用于IE6及IE7，在IE6和IE7下，设置<code>display: inline-block</code>属性的元素还是block水平</li>
 <li><code>display: table-cell</code>适用于IE8及以上浏览器</li>
 </ul>
-<h3 id="overflow"><a href="#overflow" class="headerlink" title="overflow"></a>overflow</h3><ol>
-<li><p>规范<br>overflow的剪裁边界是border box的内边缘</p>
-</li>
-<li><p>理解<br>如果overflow-x和overflow-y属性值中有一个设置为visible而另外一个设置为scroll、auto或hidden，则visible表现样式会如同auto。即永远不可能实现一个方向溢出剪裁或滚动，另外一个方向内容溢出显示的效果。</p>
-</li>
-<li><p>理解<br>PC端滚动条一般会占据容器的可用高度或者宽度，移动端一般滚动条一般都是都是悬浮模式，不用占用宽度。PC滚动条宽度一般是17px</p>
-</li>
-<li><p>-webkit- 自定义滚动条</p>
-</li>
-</ol>
-<ul>
+<h3 id="overflow"><a href="#overflow" class="headerlink" title="overflow"></a>overflow</h3><h4 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h4><p>overflow的剪裁边界是border box的内边缘</p>
+<h4 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h4><p>如果overflow-x和overflow-y属性值中有一个设置为visible而另外一个设置为scroll、auto或hidden，则visible表现样式会如同auto。即永远不可能实现一个方向溢出剪裁或滚动，另外一个方向内容溢出显示的效果。</p>
+<h4 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h4><p>PC端滚动条一般会占据容器的可用高度或者宽度，移动端一般滚动条一般都是都是悬浮模式，不用占用宽度。PC滚动条宽度一般是17px</p>
+<h4 id="webkit-自定义滚动条"><a href="#webkit-自定义滚动条" class="headerlink" title="-webkit- 自定义滚动条"></a>-webkit- 自定义滚动条</h4><ul>
 <li>整体部分 <code>::-webkit-scrollbar</code></li>
 <li>两端按钮 <code>::-webkit-scrollbar-button</code></li>
 <li>外层轨道 <code>::-webkit-scrollbar-track</code></li>
@@ -388,42 +362,20 @@
 <li>滚动滑块 <code>::-webkit-scrollbar-thumb</code></li>
 <li>边角 <code>::-webkit-scrollbar-corner</code></li>
 </ul>
-<ol>
-<li>例子<br>单行文字溢出省略<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.text &#123;</span><br><span class="line">    text-overflow: ellipsis;</span><br><span class="line">    white-space: nowrap;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h4 id="例子-4"><a href="#例子-4" class="headerlink" title="例子"></a>例子</h4><p>单行文字溢出省略<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.text &#123;</span><br><span class="line">    text-overflow: ellipsis;</span><br><span class="line">    white-space: nowrap;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>两行文字溢出省略<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.text-two-line &#123;</span><br><span class="line">    display: -webkit-box;</span><br><span class="line">    -webkit-box-orient: vertical;</span><br><span class="line">    -webkit-line-clamp: 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>锚点定位<br>锚点跳转方式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;#1&quot;&gt;&lt;/a&gt;</span><br><span class="line">&lt;h3 id=&quot;1&quot;&gt;&lt;/h3&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h4 id="锚点定位"><a href="#锚点定位" class="headerlink" title="锚点定位"></a>锚点定位</h4><p>锚点跳转方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;#1&quot;&gt;&lt;/a&gt;</span><br><span class="line">&lt;h3 id=&quot;1&quot;&gt;&lt;/h3&gt;</span><br></pre></td></tr></table></figure></p>
 <p>以下两种情况可以触发锚点定位行为：1、url地址中的锚链与锚点元素对应并且有交互行为；2、可focus的锚点元素处于focus状态时发生页面重定位。第一中方式定位的时候是让元素定位在浏览器窗体的上边缘，因此当定位元素不是在浏览器窗体上边缘时一定会发生页面滚动，第二种方式则只是让元素在浏览器窗体范围内显示，不一定会发生页面滚动。<br>返回顶部的效果可以使用简单的<code>#</code>作为锚链，则此时是定位到页面的顶部。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;#&quot;&gt;返回顶部&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
 <p>锚点定位注意以下两点：1、定位是由内而外的，也就是普通元素和窗体同时可滚动的时候，会由内而外触发所有可能滚动的窗体的锚点定位行为；2、设置了<code>overflow: hidden</code>的元素也可以“滚动”，这里指的滚动是可进行锚点定位</p>
-<h3 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h3><ol>
-<li><p>注意<br>绝对定位元素<code>height: 100%</code>是第一个具有定位属性值的祖先元素的高度，且是祖先元素的padding box高度（普通元素是content box）。<code>height: inherit</code>是单纯的父元素的高度继承。对于普通元素来说两个属性一样。</p>
-</li>
-<li><p>理解<br>绝对定位元素的“<strong>宽度自适应性</strong>”和“<strong>包裹性</strong>”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;文字内容&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h3 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h3><h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>绝对定位元素<code>height: 100%</code>是第一个具有定位属性值的祖先元素的高度，且是祖先元素的padding box高度（普通元素是content box）。<code>height: inherit</code>是单纯的父元素的高度继承。对于普通元素来说两个属性一样。</p>
+<h4 id="理解-3"><a href="#理解-3" class="headerlink" title="理解"></a>理解</h4><p>绝对定位元素的“<strong>宽度自适应性</strong>”和“<strong>包裹性</strong>”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;文字内容&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
 <p>如上简单代码，文字原来越多时，div的宽度会跟随文字变多而变宽，此为“宽度自适应”。当到达该元素的“包含块”（最近的position不为static的祖先元素）的宽度时，文字内容就会换行，此为“包裹性”。绝对定位元素默认最大宽度就是“包含块”的宽度。当然可以设置文字不换行来改变“包裹性”为“最大可用宽度”</p>
-<ol>
-<li><p>注意<br>一个绝对定位元素，如果没有设置任何<code>left/top/right/bottom</code>属性，并且其祖先元素全部都是非定位元素时，<strong>该元素还是在当前位置，只不过是脱离了文档流</strong>。可见<a href="http://demo.cssworld.cn/6/5-4.php" target="_blank" rel="noopener">demo</a>。可用在各种<a href="http://demo.cssworld.cn/6/5-5.php" target="_blank" rel="noopener">图标定位</a>，代码简洁且便于维护。<br>且可以利用此特性在“包含块”中添加一个空白元素，再利用<code>text-algin</code>改变空白符位置。此时在空白符后面的绝对定位元素（或固定定位元素）由于该特性会随着空白符位置一起动。如<a href="http://demo.cssworld.cn/6/5-10.php" target="_blank" rel="noopener">demo</a></p>
-</li>
-<li><p>理解<br>absolute的流体特性。注意以下这两种写法的差异。第一种是格式化宽度，宽度大小自适应于包含块的<code>padding box</code>。<br>如果给两者都加上padding，则前者宽高依旧是包含块的宽高，而后者则是100% + 60px。设置了对立定位属性的绝对定位元素，无论设置padding还是margin，其占据的空间一直不变，变化的是content box的大小。（和div的流体特性一样）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.box1 &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 0; bottom: 0; left: 0; right: 0;</span><br><span class="line">    // padding: 30px;</span><br><span class="line">&#125;</span><br><span class="line">.box2 &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 0; left: 0;</span><br><span class="line">    width: 100%; height: 100%;</span><br><span class="line">    // padding: 30px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h3><ol>
-<li><p>注意<br>relative定位无“侵入性”，即只会影响自己的偏移位置，不会影响其它元素的位置，可以与<code>margin-top: -10px</code>类比。</p>
-</li>
-<li><p>注意<br>relative定位是相对自身偏移，但是在设置<code>left/top/right/bottom</code>百分比值的时候，还是相对包含块计算的。</p>
-</li>
-<li><p>注意<br>当相对定位元素同时应用对立方向定位值的时候，只有一个方向的属性会起作用，先后顺序是按照文档流，默认文档流是自上而下，从左往右。</p>
-</li>
-<li><p>布局实践原则<br>最小影响化，即在要设置<code>position: relative</code>时，尽量加在更小层级的元素上。relative会影响元素的层级，相比与普通元素，relative定位元素的层级更高，可能出现“覆盖”bug。并且使用该原则会利于日后维护，不需要该元素时直接移除即可，不必担心会有其它样式是依赖该relative定位元素，减少无用代码。</p>
-</li>
-</ol>
+<h4 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h4><p>一个绝对定位元素，如果没有设置任何<code>left/top/right/bottom</code>属性，并且其祖先元素全部都是非定位元素时，<strong>该元素还是在当前位置，只不过是脱离了文档流</strong>。可见<a href="http://demo.cssworld.cn/6/5-4.php" target="_blank" rel="noopener">demo</a>。可用在各种<a href="http://demo.cssworld.cn/6/5-5.php" target="_blank" rel="noopener">图标定位</a>，代码简洁且便于维护。<br>且可以利用此特性在“包含块”中添加一个空白元素，再利用<code>text-algin</code>改变空白符位置。此时在空白符后面的绝对定位元素（或固定定位元素）由于该特性会随着空白符位置一起动。如<a href="http://demo.cssworld.cn/6/5-10.php" target="_blank" rel="noopener">demo</a></p>
+<h4 id="理解-4"><a href="#理解-4" class="headerlink" title="理解"></a>理解</h4><p>absolute的流体特性。注意以下这两种写法的差异。第一种是格式化宽度，宽度大小自适应于包含块的<code>padding box</code>。<br>如果给两者都加上padding，则前者宽高依旧是包含块的宽高，而后者则是100% + 60px。设置了对立定位属性的绝对定位元素，无论设置padding还是margin，其占据的空间一直不变，变化的是content box的大小。（和div的流体特性一样）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.box1 &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 0; bottom: 0; left: 0; right: 0;</span><br><span class="line">    // padding: 30px;</span><br><span class="line">&#125;</span><br><span class="line">.box2 &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 0; left: 0;</span><br><span class="line">    width: 100%; height: 100%;</span><br><span class="line">    // padding: 30px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h3><h4 id="注意-2"><a href="#注意-2" class="headerlink" title="注意"></a>注意</h4><p>relative定位无“侵入性”，即只会影响自己的偏移位置，不会影响其它元素的位置，可以与<code>margin-top: -10px</code>类比。</p>
+<h4 id="注意-3"><a href="#注意-3" class="headerlink" title="注意"></a>注意</h4><p>relative定位是相对自身偏移，但是在设置<code>left/top/right/bottom</code>百分比值的时候，还是相对包含块计算的。</p>
+<h4 id="注意-4"><a href="#注意-4" class="headerlink" title="注意"></a>注意</h4><p>当相对定位元素同时应用对立方向定位值的时候，只有一个方向的属性会起作用，先后顺序是按照文档流，默认文档流是自上而下，从左往右。</p>
+<h4 id="布局实践原则"><a href="#布局实践原则" class="headerlink" title="布局实践原则"></a>布局实践原则</h4><p>最小影响化，即在要设置<code>position: relative</code>时，尽量加在更小层级的元素上。relative会影响元素的层级，相比与普通元素，relative定位元素的层级更高，可能出现“覆盖”bug。并且使用该原则会利于日后维护，不需要该元素时直接移除即可，不必担心会有其它样式是依赖该relative定位元素，减少无用代码。</p>
 
       
     </div>
@@ -601,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#float"><span class="nav-number">1.</span> <span class="nav-text">float</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overflow"><span class="nav-number">2.</span> <span class="nav-text">overflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#absolute"><span class="nav-number">3.</span> <span class="nav-text">absolute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#relative"><span class="nav-number">4.</span> <span class="nav-text">relative</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#float"><span class="nav-number">1.</span> <span class="nav-text">float</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#理论"><span class="nav-number">1.1.</span> <span class="nav-text">理论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">1.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#术语"><span class="nav-number">1.3.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子-1"><span class="nav-number">1.4.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子-2"><span class="nav-number">1.5.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理解"><span class="nav-number">1.6.</span> <span class="nav-text">理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理论-1"><span class="nav-number">1.7.</span> <span class="nav-text">理论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子-3"><span class="nav-number">1.8.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.9.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#overflow"><span class="nav-number">2.</span> <span class="nav-text">overflow</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#规范"><span class="nav-number">2.1.</span> <span class="nav-text">规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理解-1"><span class="nav-number">2.2.</span> <span class="nav-text">理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理解-2"><span class="nav-number">2.3.</span> <span class="nav-text">理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#webkit-自定义滚动条"><span class="nav-number">2.4.</span> <span class="nav-text">-webkit- 自定义滚动条</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子-4"><span class="nav-number">2.5.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锚点定位"><span class="nav-number">2.6.</span> <span class="nav-text">锚点定位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#absolute"><span class="nav-number">3.</span> <span class="nav-text">absolute</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">3.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理解-3"><span class="nav-number">3.2.</span> <span class="nav-text">理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-1"><span class="nav-number">3.3.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理解-4"><span class="nav-number">3.4.</span> <span class="nav-text">理解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#relative"><span class="nav-number">4.</span> <span class="nav-text">relative</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-2"><span class="nav-number">4.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-3"><span class="nav-number">4.2.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-4"><span class="nav-number">4.3.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布局实践原则"><span class="nav-number">4.4.</span> <span class="nav-text">布局实践原则</span></a></li></ol></li></ol></div>
             
 
           </div>
