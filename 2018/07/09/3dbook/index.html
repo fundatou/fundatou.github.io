@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="css," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言上周看了京东以前的一个活动页面，看了一波代码，跟着做了个3d书效果的demo。趁热打铁，这周回顾记录下整个过程和思路，不然拖拖拖拖拖拖拖延症一犯，又不知道要到猴年马月了。">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3dbook">
+<meta property="og:url" content="http://yoursite.com/2018/07/09/3dbook/index.html">
+<meta property="og:site_name" content="Fundatou">
+<meta property="og:description" content="前言上周看了京东以前的一个活动页面，看了一波代码，跟着做了个3d书效果的demo。趁热打铁，这周回顾记录下整个过程和思路，不然拖拖拖拖拖拖拖延症一犯，又不知道要到猴年马月了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo1_structure.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo1_unit.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo1_back.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo1_turn_page.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo2_structure.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo2_open_css.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo2_structure.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo1_gif.gif">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo2_gif.gif">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/3dbook/demo3.gif">
+<meta property="og:updated_time" content="2018-07-11T14:35:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3dbook">
+<meta name="twitter:description" content="前言上周看了京东以前的一个活动页面，看了一波代码，跟着做了个3d书效果的demo。趁热打铁，这周回顾记录下整个过程和思路，不然拖拖拖拖拖拖拖延症一犯，又不知道要到猴年马月了。">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/09/3dbook/demo1_structure.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/09/3dbook/"/>
+
+
+
+
+
+  <title>3dbook | Fundatou</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fundatou</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/3dbook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fundatou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fundatou">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">3dbook</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T23:03:09+08:00">
+                2018-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上周看了京东以前的一个<a href="http://jdc.jd.com/fd/pp/maimang/index.html" target="_blank" rel="noopener">活动页面</a>，看了一波代码，跟着做了个3d书效果的demo。趁热打铁，这周回顾记录下整个过程和思路，不然拖拖拖拖拖拖拖延症一犯，又不知道要到猴年马月了。</p>
+<a id="more"></a>
+<h2 id="主要用到的css属性"><a href="#主要用到的css属性" class="headerlink" title="主要用到的css属性"></a>主要用到的css属性</h2><h3 id="transfrom-style"><a href="#transfrom-style" class="headerlink" title="transfrom-style"></a>transfrom-style</h3><p>transform-style属性确定元素的子元素是否位于3D空间中，还是在该元素所在的平面内被扁平化(来自<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-style" target="_blank" rel="noopener">MDN</a>)。只有设置了这个属性，对元素进行三维空间中的操作才会看到效果。并且要注意这个属性<strong>不会主动被子元素继承</strong>。</p>
+<h3 id="backface-visibility"><a href="#backface-visibility" class="headerlink" title="backface-visibility"></a>backface-visibility</h3><p>属性指定当元素背面朝向观察者时是否可见。元素的背面总是透明的，当其朝向观察者时，显示正面的镜像(来自<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/backface-visibility" target="_blank" rel="noopener">MDN</a>)。因此在这个demo中要设置该属性让元素背面不见。</p>
+<h3 id="perspective"><a href="#perspective" class="headerlink" title="perspective"></a>perspective</h3><p>perspective 属性指定了观察者与z=0平面的距离，使具有三维位置变换的元素产生透视效果。z&gt;0的三维元素比正常大，而z&lt;0时则比正常小，大小程度由该属性的值决定(来自<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective" target="_blank" rel="noopener">MDN</a>)。可以类比绘画中的近大远小原理。</p>
+<h2 id="一个简单的翻页demo"><a href="#一个简单的翻页demo" class="headerlink" title="一个简单的翻页demo"></a>一个简单的翻页demo</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>在这个demo中，以书的“物理”页（包括前后两面）为一个单位，每页由“正面”和“反面”两个div组成，“反面”自身需要绕y轴旋转180度。且在整本书中，为了不用再对层级关系做其它处理，div以书页顺序<strong>倒序放置</strong>。</p>
+<p><img src="./demo1_structure.jpeg" width="400px"><br><img src="./demo1_unit.jpeg" width="400px"><br><img src="./demo1_back.jpeg" width="400px"></p>
+<h3 id="翻页"><a href="#翻页" class="headerlink" title="翻页"></a>翻页</h3><p>翻页的时候就是将上文中说到的单位页以书轴为旋转轴逆时针旋转180度，转换为代码即改变<code>transfrom-origin</code>，然后<code>rotateY(-180deg)</code>。</p>
+<p><img src="./demo1_turn_page.jpeg" width="400px"></p>
+<h2 id="多页demo"><a href="#多页demo" class="headerlink" title="多页demo"></a>多页demo</h2><h3 id="结构-1"><a href="#结构-1" class="headerlink" title="结构"></a>结构</h3><p>这个demo中的结构与上一个demo中的结构有所不同。这里是以当前看到的左右两页为一个单位（考虑到之后的demo中可能会有左右两页之间的关联，因此这里换成左右两页为一个单位。但是完成最终的立体书后我觉得其实用上面一种结构应该也可以，左右两页之间并没有“真正”的关联）。</p>
+<p><img src="./demo2_structure.jpeg" width="400px"></p>
+<p>以页面的前后两面为一个单位时，上一个demo中翻页时只需要考虑自身页的翻转，不需要做层级控制，翻页的效果更接近于物理翻页效果。而在这个demo中，翻页时需要将打开页的层级提高的同时还要将关闭的那页层级降低，当前翻动的那页的正反两面由两个animation在控制，因此有一个比较明显的“断层”现象。</p>
+<p><img src="./demo2_open_css.jpeg" width="400px"><br><img src="./demo2_structure.jpeg" width="400px"></p>
+<p><img src="./demo1_gif.gif" width="400px"><br><img src="./demo2_gif.gif" width="400px"></p>
+<h3 id="class"><a href="#class" class="headerlink" title="class"></a>class</h3><ul>
+<li>从“书”的层面划分的话，除了初始状态class（既没向左翻也没向右翻）以外，需要向左翻页和向右翻页两种不同的class，设置class为<code>turn_left</code>和<code>turn_right</code>。</li>
+<li>从“单位页”的层面划分的话，需要基本单位页、打开状态和“前一页”这三种class，打开页面时当前打开页和当前关闭页都要设置旋转效果和颜色过渡效果（做颜色过渡的效果是为了模拟书本在翻页过程当中书页的明暗变化，如果想进一步做到影子随书页翻动而移动的效果的话可以也可以模仿<a href="https://www.html5tricks.com/demo/css3-3d-book/index.html" target="_blank" rel="noopener">这个页面</a>），设置class为<code>page</code>、<code>unfold</code>、<code>pre_page</code>。</li>
+<li>从“面”的层面划分的话，需要区分左半面和右半面，设置class为<code>side_left</code>和<code>side_right</code>。</li>
+</ul>
+<p>下面是向左翻动页面时涉及到的css代码，做了相应的注解，全部按照从大到小的层级书写，这样写样式时不容易遗漏。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">/* 页面打开时，整个页面的层级发生变化，向上移动一层 */</span><br><span class="line">.turn_left .unfold, .turn_right .unflod &#123;</span><br><span class="line">    z-index: 9;</span><br><span class="line">    animation: unfold step-end 2s 0.4s forwards;</span><br><span class="line">&#125;</span><br><span class="line">@keyframes unfold &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        z-index: 9;</span><br><span class="line">        transform: rotateX(63deg) translateZ(-168px);</span><br><span class="line">    &#125;</span><br><span class="line">    33.5%, 100% &#123;</span><br><span class="line">        z-index: 10;</span><br><span class="line">        transform: rotateX(63deg) translateZ(-167px);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/* 前一页在页面合上的时候才会出现，也就是在页面合上的时候调整层级顺序，像下移动一层 */</span><br><span class="line">.pre_page &#123;</span><br><span class="line">    z-index: 10;</span><br><span class="line">    animation: pre_page_fold step-end 2s 0.4s forwards, hide step-end 2s 0.4s forwards;</span><br><span class="line">&#125;</span><br><span class="line">@keyframes pre_page_fold &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        z-index: 9;</span><br><span class="line">        transform: rotateX(63deg) translateZ(-167px);</span><br><span class="line">    &#125;</span><br><span class="line">    33.5%, 100% &#123;</span><br><span class="line">        z-index: 9;</span><br><span class="line">        transform: rotateX(63deg) translateZ(-168px);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@keyframes hide &#123;</span><br><span class="line">    0%, 90% &#123;</span><br><span class="line">        opacity: 1;</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        opacity: 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 左翻时打开的左边页面需要旋转和颜色变化 */</span><br><span class="line">.turn_left .unfold .side_left &#123;</span><br><span class="line">    animation: unfold_left_side_left ease 2s 0.5s forwards, unfold_color_side_left ease 2s 0.5s forwards;</span><br><span class="line">&#125;</span><br><span class="line">@keyframes unfold_left_side_left &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        transform: rotateY(180deg);</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        transform: rotateY(0deg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/* 打开页面时颜色由深变浅 */</span><br><span class="line">@keyframes unfold_color_side_left &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        background-color: #a2a2a2;</span><br><span class="line">    &#125;</span><br><span class="line">    20% &#123;</span><br><span class="line">        background-color: #a9a9a9;</span><br><span class="line">    &#125;</span><br><span class="line">    40% &#123;</span><br><span class="line">        background-color: #bfbfbf;</span><br><span class="line">    &#125;</span><br><span class="line">    60% &#123;</span><br><span class="line">        background-color: #d8d8d8;</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        background-color: #cdcdcd;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/* 左翻时打开的右边页面只有颜色变化 */</span><br><span class="line">.turn_left .unfold .side_right &#123;</span><br><span class="line">    animation: unfold_color_side_right ease 2s 0.5s forwards;</span><br><span class="line">&#125;</span><br><span class="line">@keyframes unfold_color_side_right &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        background-color: #a2a2a2;</span><br><span class="line">    &#125;</span><br><span class="line">    20% &#123;</span><br><span class="line">        background-color: #a9a9a9;</span><br><span class="line">    &#125;</span><br><span class="line">    40% &#123;</span><br><span class="line">        background-color: #bfbfbf;</span><br><span class="line">    &#125;</span><br><span class="line">    60% &#123;</span><br><span class="line">        background-color: #d8d8d8;</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        background-color: #dddddd;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/* 向左打开页面时，前一页的右边页需要旋转和颜色变化 */</span><br><span class="line">.turn_left .pre_page .side_right &#123;</span><br><span class="line">    animation: turn_left_pre_page_side_right ease 2s 0.5s forwards, pre_page_side_right_color ease 2s 0.5s forwards;</span><br><span class="line">&#125;</span><br><span class="line">@keyframes turn_left_pre_page_side_right &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        transform: rotateY(0deg);</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        transform: rotateY(-180deg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/* 合上页面时，颜色由浅变深 */</span><br><span class="line">@keyframes pre_page_side_right_color &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        background-color: #dddddd;</span><br><span class="line">    &#125;</span><br><span class="line">    20% &#123;</span><br><span class="line">        background-color: #d8d8d8;</span><br><span class="line">    &#125;</span><br><span class="line">    40% &#123;</span><br><span class="line">        background-color: #bfbfbf;</span><br><span class="line">    &#125;</span><br><span class="line">    60% &#123;</span><br><span class="line">        background-color: #a9a9a9;</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        background-color: #a2a2a2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/* 向左打开页面时，前一页的左边页只需要颜色变化 */</span><br><span class="line">.turn_left .pre_page .side_left &#123;</span><br><span class="line">    animation: pre_page_side_left_color ease 2s 0.5s forwards;</span><br><span class="line">&#125;</span><br><span class="line">@keyframes pre_page_side_left_color &#123;</span><br><span class="line">    0% &#123;</span><br><span class="line">        background-color: #cdcdcd;</span><br><span class="line">    &#125;</span><br><span class="line">    20% &#123;</span><br><span class="line">        background-color: #c9c9c9;</span><br><span class="line">    &#125;</span><br><span class="line">    40% &#123;</span><br><span class="line">        background-color: #b8b8b8;</span><br><span class="line">    &#125;</span><br><span class="line">    60% &#123;</span><br><span class="line">        background-color: #a8a8a8;</span><br><span class="line">    &#125;</span><br><span class="line">    100% &#123;</span><br><span class="line">        background-color: #a2a2a2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="立体书"><a href="#立体书" class="headerlink" title="立体书"></a>立体书</h2><p>翻书的效果主体部分其实是上面讲的书体部分，书体部分完成之后，不过是在每个页面中加入不同的内容，在书页打开时内容效果速度小于书页打开速度。</p>
+<p><img src="./demo3.gif" width="400px"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.ele &#123;</span><br><span class="line">    background-size: 100% 100%;</span><br><span class="line">    position: absolute;</span><br><span class="line">    transform-origin: 50% 100%;</span><br><span class="line">    /* 延迟大于书体中效果的延迟 */</span><br><span class="line">    transition: transform ease 2s 1s, opacity ease 2s 0.9s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 书页打开时卡片立起来 */</span><br><span class="line">.unfold .ele &#123;</span><br><span class="line">    opacity: 1;</span><br><span class="line">    transform: rotateX(-65deg);</span><br><span class="line">&#125;</span><br><span class="line">/* 书页合上的状态，卡片透明度变为0 */</span><br><span class="line">.fold_left .ele, .fold_right .ele &#123;</span><br><span class="line">    opacity: 0;</span><br><span class="line">&#125;</span><br><span class="line">.pre_page .ele &#123;</span><br><span class="line">    opacity: 0;</span><br><span class="line">    transition: all ease 1s, opacity ease 0.4s 1s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/24/cssworld/" rel="next" title="《CSS世界》笔记">
+                <i class="fa fa-chevron-left"></i> 《CSS世界》笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Fundatou</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/fundatou" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.douban.com/people/Fundatou/" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-globe"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要用到的css属性"><span class="nav-number">2.</span> <span class="nav-text">主要用到的css属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transfrom-style"><span class="nav-number">2.1.</span> <span class="nav-text">transfrom-style</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backface-visibility"><span class="nav-number">2.2.</span> <span class="nav-text">backface-visibility</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perspective"><span class="nav-number">2.3.</span> <span class="nav-text">perspective</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个简单的翻页demo"><span class="nav-number">3.</span> <span class="nav-text">一个简单的翻页demo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构"><span class="nav-number">3.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#翻页"><span class="nav-number">3.2.</span> <span class="nav-text">翻页</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多页demo"><span class="nav-number">4.</span> <span class="nav-text">多页demo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构-1"><span class="nav-number">4.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class"><span class="nav-number">4.2.</span> <span class="nav-text">class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#立体书"><span class="nav-number">5.</span> <span class="nav-text">立体书</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fundatou</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
